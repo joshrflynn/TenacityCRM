@@ -10,15 +10,18 @@ const Dashboard = () => {
   const auth = useAuth();
   const nav = useNavigate();
   const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // get a list of all clients with the user
   useEffect(() => {
+    setLoading(true);
     (async () => {
-      const res = await SelectUserClients(auth!.id);
+      const res = await SelectUserClients(auth?.id ?? "");
       if (res instanceof PostgrestError) {
         // handle error here
       } else {
         setClients(res);
+        setLoading(false);
       }
     })();
   }, [auth]);
@@ -29,18 +32,20 @@ const Dashboard = () => {
         Dashboard for user: {auth?.user_metadata.first_name}{" "}
         {auth?.user_metadata.last_name}
       </div>
-      <div>
-        {clients.map((x) => {
-          return (
-            <button
-              onClick={() => {
-                nav(`/client/${x.id}`, { state: { client: x } });
-              }}
-            >
-              {x.company}
-            </button>
-          );
-        })}
+      <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>
+        {loading
+          ? "loading"
+          : clients.map((x) => {
+              return (
+                <button
+                  onClick={() => {
+                    nav(`/client/${x.id}`);
+                  }}
+                >
+                  {x.company}
+                </button>
+              );
+            })}
       </div>
       <button
         onClick={async () => {

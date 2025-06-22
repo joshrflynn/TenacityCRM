@@ -1,4 +1,9 @@
+import { useNavigate, useParams } from "react-router";
+
 const CreateInteraction = () => {
+  const nav = useNavigate();
+  const { id } = useParams();
+
   return (
     <div>
       <div>
@@ -11,6 +16,7 @@ const CreateInteraction = () => {
       <div>
         <input placeholder="content" />
       </div>
+      <button onClick={() => nav(`/client/${id}`)}>Back to client</button>
     </div>
   );
 };

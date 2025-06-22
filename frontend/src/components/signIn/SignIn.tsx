@@ -1,24 +1,16 @@
 import { AuthError, User } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { signInAsync } from "../../util/authUtil";
-import { useAuth } from "../../context/authContext";
 import { CreateValidationMessage } from "../../util/validationUtil";
 
 const SignIn = () => {
-  const auth = useAuth();
   const [email, setEmail] = useState<string>("test@test.com");
   const [password, setPassword] = useState<string>("testtest");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   let nav = useNavigate();
-
-  useEffect(() => {
-    if (auth !== null) {
-      nav("/dashboard");
-    }
-  }, [auth, nav]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,6 +57,7 @@ const SignIn = () => {
         <img
           src="/img/handshake-logo.svg"
           style={{ height: "72px", marginRight: "15px" }}
+          alt="Tenacity Logo"
         />
         <span
           style={{
@@ -111,6 +104,7 @@ const SignIn = () => {
             padding: "15px",
             display: "flex",
             flexDirection: "column",
+            minWidth: "300px",
           }}
         >
           <div style={{ textAlign: "center", fontSize: "24px" }}>
@@ -185,6 +179,7 @@ const SignIn = () => {
                       ? "/img/show-password.svg"
                       : "/img/hide-password.svg"
                   }
+                  alt={showPassword ? "show password" : "hide password"}
                 />
               </span>
             </div>

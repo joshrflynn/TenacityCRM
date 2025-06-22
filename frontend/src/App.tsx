@@ -4,6 +4,7 @@ import CreateClient from "./components/client/CreateClient";
 import Dashboard from "./components/dashboard/Dashboard";
 import DashboardRedirect from "./components/home/DashboardRedirect";
 import Home from "./components/home/Home";
+import CreateInteraction from "./components/interaction/CreateInteraction";
 import NotFound from "./components/notFound/NotFound";
 import SignIn from "./components/signIn/SignIn";
 import SignUp from "./components/signUp/SignUp";
@@ -39,6 +40,9 @@ function App() {
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="client">
         <Route path=":id" element={<ClientDetails />} />
+        <Route path=":id/interaction" element={""} />
+        <Route path=":id/interaction/create" element={<CreateInteraction />} />
+
         <Route path="create" element={<CreateClient />} />
       </Route>
       <Route path="*" element={<NotFound />} />

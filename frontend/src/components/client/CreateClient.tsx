@@ -66,11 +66,8 @@ const CreateClient = () => {
           if (res instanceof PostgrestError) {
             // handle error
           }
-          console.dir(res);
           // redirect to client details page, for now redirect to dashboard
-          nav(`/client/${(res as Client).id}`, {
-            state: { client: res as Client },
-          });
+          nav(`/client/${(res as Client).id}`);
         }}
       >
         Create Client
